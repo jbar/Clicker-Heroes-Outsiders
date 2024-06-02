@@ -1,3 +1,11 @@
+function bytesToBase64(bytes) {
+  const binString = Array.from(bytes, (byte) =>
+    String.fromCodePoint(byte),
+  ).join("");
+  return btoa(binString);
+}
+
+
 function readSave() {
 	let txt = $("#savegame").val();
 	let data;
@@ -29,6 +37,9 @@ function readSave() {
 		}
 		let ancientSouls = data.ancientSoulsTotal;
 		$("#ancient_souls").val(ancientSouls);
+		data.ancientSouls += 200;
+		data.heroSouls = data.highestGold ;
+		console.log("7e8bb5a89f2842ac4af01b3b7e228592"+bytesToBase64(pako.deflateRaw(JSON.stringify(data))));
 		let outsiders = refresh();
 		const autolevelEnabled = $("#autolevel").is(":checked");
         if (outsiders && autolevelEnabled) {
